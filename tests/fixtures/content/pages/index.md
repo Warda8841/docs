@@ -1,6 +1,6 @@
 ---
 title: Pages Documentation
-shortTitle: Pages ({% data variables.product.product_name %})
+shortTitle: Pages
 intro: 'Pages are cool on {% ifversion ghae %}{% data variables.product.product_name %}{% else %}{% data variables.location.product_location %}{% endif %}. '
 introLinks:
   quickstart: /pages/quickstart

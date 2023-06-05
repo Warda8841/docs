@@ -105,13 +105,8 @@ export const getProductLandingContextFromRequest = async (
     ? await page.renderProp('product_video', req.context, { textOnly: true })
     : ''
 
-  const title = await page.renderProp('title', req.context, { textOnly: true })
-  const shortTitle = (await page.renderProp('shortTitle', req.context, { textOnly: true })) || null
-
   return {
-    title,
-    shortTitle,
-    ...pick(page, ['introPlainText', 'beta_product', 'intro']),
+    ...pick(page, ['title', 'shortTitle', 'introPlainText', 'beta_product', 'intro']),
     productVideo,
     productVideoTranscript: page.product_video_transcript || null,
     hasGuidesPage,

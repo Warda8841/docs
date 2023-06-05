@@ -12,12 +12,6 @@ export type ProductT = {
   versions?: Array<string>
 }
 
-type SimpleProductT = {
-  href: string
-  name: string
-  external: boolean
-}
-
 type VersionItem = {
   // free-pro-team@latest, enterprise-cloud@latest, enterprise-server@3.3 ...
   version: string
@@ -71,7 +65,7 @@ export type MainContextT = {
     maptopic?: BreadcrumbT
     article?: BreadcrumbT
   }
-  homepageLinks: Array<SimpleProductT>
+  activeProducts: Array<ProductT>
   communityRedirect: {
     name: string
     href: string
@@ -129,7 +123,7 @@ export const getMainContext = async (req: any, res: any): Promise<MainContextT> 
 
   return {
     breadcrumbs: req.context.breadcrumbs || {},
-    homepageLinks: req.context.homepageLinks || null,
+    activeProducts: req.context.activeProducts,
     communityRedirect: req.context.page?.communityRedirect || {},
     currentProduct: req.context.productMap[req.context.currentProduct] || null,
     currentLayoutName: req.context.currentLayoutName,

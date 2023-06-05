@@ -49,11 +49,6 @@ childGroups:
     octicon: RocketIcon
     children:
       - get-started
-  - name: CI/CD and DevOps
-    octicon: GearIcon
-    children:
-      - actions
-      - pages
 
 externalProducts:
   electron:
