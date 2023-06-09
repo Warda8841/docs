@@ -16,6 +16,7 @@ import {
   setLanguageFastlySurrogateKey,
 } from './set-fastly-surrogate-key.js'
 import handleErrors from '#src/observability/middleware/handle-errors.js'
+import handleInvalidPaths from '#src/observability/middleware/handle-invalid-paths.js'
 import handleNextDataPath from './handle-next-data-path.js'
 import detectLanguage from './detect-language.js'
 import reloadTree from './reload-tree.js'
@@ -65,7 +66,8 @@ import fastlyBehavior from './fastly-behavior.js'
 import mockVaPortal from './mock-va-portal.js'
 import dynamicAssets from './dynamic-assets.js'
 import contextualizeSearch from '#src/search/middleware/contextualize.js'
-import shielding from '#src/shielding/middleware/index.js'
+import rateLimit from './rate-limit.js'
+import handleInvalidQuerystrings from '#src/observability/middleware/handle-invalid-query-strings.js'
 
 const { DEPLOYMENT_ENV, NODE_ENV } = process.env
 const isTest = NODE_ENV === 'test' || process.env.GITHUB_ACTIONS === 'true'
@@ -199,7 +201,9 @@ export default function (app) {
   }
 
   // *** Early exits ***
-  app.use(shielding)
+  app.use(rateLimit)
+  app.use(instrument(handleInvalidQuerystrings, './handle-invalid-querystrings'))
+  app.use(instrument(handleInvalidPaths, './handle-invalid-paths'))
   app.use(instrument(handleNextDataPath, './handle-next-data-path'))
 
   // *** Security ***
